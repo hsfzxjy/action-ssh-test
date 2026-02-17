@@ -5,8 +5,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+      - name: Setup tmux
+        run: |
+          cp ./.tmux.conf $HOME/
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
       - name: Run
