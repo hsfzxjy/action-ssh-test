@@ -8,8 +8,13 @@ jobs:
       - name: Setup tmux
         run: |
           cp ./.tmux.conf $HOME/
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3          
-      - name: Run
+      - name: Setup SSH and Cloudflare Tunnel
         run: |
-          echo test
+          mkdir -p ~/.ssh/
+          chmod 700 ~/.ssh/
+          echo "${{ secrets.MY_PUB_KEY }}" >> ~/.ssh/authorized_keys
+          chmod 600 ~/.ssh/authorized_keys
+          wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-darwin-arm64.tgz
+          tar xzvf cloudflared-darwin-arm64.tgz
+          chmod +x cloudflared
+          ./cloudflared tunnel run --token "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}"
