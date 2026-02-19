@@ -5,9 +5,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup tmux
+      - name: Setup terminal configuration
         run: |
           cp ./.tmux.conf $HOME/
+          cp ./.inputrc $HOME/
       - name: Setup SSH and Cloudflare Tunnel
         run: |
           mkdir -p ~/.ssh/
