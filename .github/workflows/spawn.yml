@@ -1,5 +1,5 @@
 name: Spawn
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: macos-latest
