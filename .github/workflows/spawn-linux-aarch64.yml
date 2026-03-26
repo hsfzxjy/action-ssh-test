@@ -2,7 +2,7 @@ name: Spawn
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       - name: Setup terminal configuration
@@ -15,7 +15,8 @@ jobs:
           chmod 700 ~/.ssh/
           echo "${{ secrets.MY_PUB_KEY }}" >> ~/.ssh/authorized_keys
           chmod 600 ~/.ssh/authorized_keys
-          wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-darwin-arm64.tgz
-          tar xzvf cloudflared-darwin-arm64.tgz
-          chmod +x cloudflared
-          ./cloudflared tunnel run --token "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}"
+          wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-linux-arm64.deb
+          sudo dpkg -i cloudflared-linux-arm64.deb
+          # mv cloudflared-linux-arm64 cloudflared
+          # chmod +x cloudflared
+          cloudflared tunnel run --token "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN_LINUX_AARCH64 }}"
