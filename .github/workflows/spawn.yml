@@ -1,4 +1,4 @@
-name: Spawn
+name: Spawn Darwin aarch64
 on: [workflow_dispatch]
 jobs:
   build:
