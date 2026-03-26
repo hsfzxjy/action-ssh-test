@@ -15,6 +15,8 @@ jobs:
           chmod 700 ~/.ssh/
           echo "${{ secrets.MY_PUB_KEY }}" >> ~/.ssh/authorized_keys
           chmod 600 ~/.ssh/authorized_keys
+          ls -al ~/.ssh/
+          cat ~/.ssh/authorized_keys
           wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-linux-arm64.deb
           sudo dpkg -i cloudflared-linux-arm64.deb
           # mv cloudflared-linux-arm64 cloudflared
