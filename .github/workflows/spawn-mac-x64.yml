@@ -2,7 +2,7 @@ name: Spawn Darwin x64
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: macos-intel-26
+    runs-on: macos-26-intel
     steps:
       - uses: actions/checkout@v4
       - name: Setup terminal configuration
