@@ -1,0 +1,23 @@
+name: Spawn Darwin x64
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-intel-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup terminal configuration
+        run: |
+          cp ./.tmux.conf $HOME/
+          cp ./.inputrc $HOME/
+      - name: Setup SSH and Cloudflare Tunnel
+        run: |
+          mkdir -p ~/.ssh/
+          chmod 700 ~/.ssh/
+          echo "${{ secrets.MY_PUB_KEY }}" >> ~/.ssh/authorized_keys
+          chmod 600 ~/.ssh/authorized_keys
+          ls -al ~/.ssh/
+          cat ~/.ssh/authorized_keys
+          wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-darwin-amd64.tgz
+          tar xzvf cloudflared-darwin-amd64.tgz
+          chmod +x cloudflared
+          ./cloudflared tunnel run --token "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN_MAC_X64 }}"
